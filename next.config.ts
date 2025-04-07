@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
 
   env: {
     API_URL: process.env.API_URL,
-    AES_KEY: process.env.X_RapidAPI_Host,
+    AES_KEY: process.env. AES_KEY,
 
 
   },

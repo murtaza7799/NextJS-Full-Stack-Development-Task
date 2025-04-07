@@ -1,6 +1,6 @@
 // A mock function to mimic making an async request for data
 
-// import { encryptToAES } from "@/lib/encryption";
+import { encryptToAES } from "@/lib/encryption";
 import { types_user_signup } from "@/types/auth";
 
 
@@ -27,11 +27,11 @@ export const user_signup = async (userdata: types_user_signup) => {
     }
 
     const { name, email, password, city, username } = userdata;
-    // const encryptedPassword = encryptToAES(password, "this is the test key for now");
+    const encryptedPassword = encryptToAES(password);
     const apiresponse = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password, username, city }),
+      body: JSON.stringify({ name, email, password : encryptedPassword, username, city }),
     });
 
     interface ApiResponse {
