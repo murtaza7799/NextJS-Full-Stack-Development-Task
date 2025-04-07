@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-7gqc*c4j#pvac-h!6g=f_+m&!vg+-#f22ra7q61=+tgrs)+xy^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['backendsignuptask.onrender.com']
 
 
 # This setting informs Django of the URI path from which your static files will be served to users
