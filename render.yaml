@@ -1,0 +1,21 @@
+databases:
+  - name: backendsignuptask
+    plan: free
+    databaseName: backendsignuptaskdb
+    user: backendsignuptask
+
+services:
+  - type: web
+    plan: free
+    name: backendsignuptask
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "python -m gunicorn backendsignuptask.asgi:application -k uvicorn.workers.UvicornWorker"    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mysitedb
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
