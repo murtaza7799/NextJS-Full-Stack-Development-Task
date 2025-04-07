@@ -1,8 +1,7 @@
 "use client"
 import React from "react"
 import { types_set_user_signin } from "@/types/auth"
-import ReactDOM from "react-dom"
-import { useForm, SubmitHandler, useWatch } from "react-hook-form"
+import { useForm, SubmitHandler } from "react-hook-form"
 import { useAppDispatch, useAppSelector } from "@/lib/hooks"
 import { user_signupAuth } from "@/lib/features/auth/authSlice"
 import { toast } from "react-toastify"
@@ -20,11 +19,11 @@ export default function SignUP() {
 
 
       
-  const onSubmit: SubmitHandler<types_set_user_signin> = async (data :any) => {
+  const onSubmit: SubmitHandler<types_set_user_signin> = async (data: types_set_user_signin) => {
 
-   const response: any = await dispatch(
+   const response = await dispatch(
     user_signupAuth(data)
-   )
+   ) as { payload: { status: number; data: { MessageCode: string } } };
     if (response?.payload?.status === 201) {
       toast(response?.payload?.data?.MessageCode);
       router.push("/")

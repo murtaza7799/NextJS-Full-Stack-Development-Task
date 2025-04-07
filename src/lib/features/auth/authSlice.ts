@@ -41,7 +41,7 @@ export const AuthSlice = createSlice({
         state.isSignUp = true
         state.error = null;
       })
-      .addCase(user_signupAuth.rejected, (state, action) => {
+      .addCase(user_signupAuth.rejected, (state) => {
         state.loading = false;
         // state.data.MessageCode = action.payload.data.MessageCode;
         // state.data.MessageDescription = action.payload.data.MessageDescription;

@@ -1,10 +1,10 @@
 import { AES, enc } from 'crypto-js';
 
-export function encryptToAES(text: string, key: string): any { 
-    const storedKey = process.env.AES_KEY;
+export function encryptToAES(text: string): string { 
+    const storedKey = process.env.AES_KEY as string;
     const textValue = enc.Utf8.parse(text);
-    const keyValue = enc.Base64.parse(key);
+    const keyValue = enc.Base64.parse(storedKey);
 
-    var encrypted = AES.encrypt(textValue, keyValue);
-    return encrypted.toString();
+    return  AES.encrypt(textValue, keyValue).toString();
+    
 }

@@ -1,6 +1,6 @@
 // A mock function to mimic making an async request for data
 
-import { encryptToAES } from "@/lib/encryption";
+// import { encryptToAES } from "@/lib/encryption";
 import { types_user_signup } from "@/types/auth";
 
 
@@ -16,6 +16,8 @@ export interface  Response {
 // leave response types for new for awaiting backend
 export const user_signup = async (userdata: types_user_signup) => {
 
+  const url = decodeURI(`${process.env.API_URL}/user/signup/`);
+
     let response : Response ={
       data: {
         MessageCode: "",
@@ -26,27 +28,36 @@ export const user_signup = async (userdata: types_user_signup) => {
 
     const { name, email, password, city, username } = userdata;
     // const encryptedPassword = encryptToAES(password, "this is the test key for now");
-    const apiresponse = await fetch(`${process.env.API_URL}/user/signup/`, {
+    const apiresponse = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password: password, username, city }),
+      body: JSON.stringify({ name, email, password, username, city }),
     });
 
-    const result: { data: any } = await apiresponse.json();
+    interface ApiResponse {
+   
+        MessageCode: string;
+        MessageDescription: string;
+      
+    }
 
-  if (result?.data && result.data.MessageCode === "User Created") {
+    const result: ApiResponse = await apiresponse.json();
+
+    console.log("result", result);
+
+  if (result && result.MessageCode === "User Created") {
     response = {
       data: {
-        MessageCode: result.data.MessageCode,
-        MessageDescription: result.data.MessageDescription,
+        MessageCode: result.MessageCode,
+        MessageDescription: result.MessageDescription,
       },
       status: apiresponse.status,
     };
-  } else if (result?.data) {
+  } else if (result) {
     response = {
       data: {
-        MessageCode: result.data.MessageCode,
-        MessageDescription: result.data.MessageDescription,
+        MessageCode: result.MessageCode,
+        MessageDescription: result.MessageDescription,
       },
       status: apiresponse.status,
     };
